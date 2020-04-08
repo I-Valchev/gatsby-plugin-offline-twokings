@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-offline-twokings",
   "description": "Gatsby plugin forked from official gatsby-plugin-offline.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Ivo Valchev <ivo@twokings.nl>",
   "dependencies": {
     "@babel/runtime": "^7.8.7",

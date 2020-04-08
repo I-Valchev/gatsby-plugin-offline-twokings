@@ -101,10 +101,13 @@ exports.onPostBuild = (args, {
   }
 
   const offlineShellPath = `${process.cwd()}/${rootDir}/offline-plugin-app-shell-fallback/index.html`;
-  const precachePages = [offlineShellPath, ...getPrecachePages(precachePagesGlobs, `${process.cwd()}/${rootDir}`).filter(page => page !== offlineShellPath)];
+  const precachePages = [...getPrecachePages(precachePagesGlobs, `${process.cwd()}/${rootDir}`).filter(page => page !== offlineShellPath)];
 
-  const criticalFilePaths = _.uniq(flat(precachePages.map(page => getResourcesFromHTML(page, pathPrefix))));
+  let criticalFilePaths = _.uniq(flat(precachePages.map(page => getResourcesFromHTML(page, pathPrefix))));
 
+  precachePages.map(page => {
+    criticalFilePaths.push(page.replace(`${process.cwd()}/public/`, ``));
+  });
   const globPatterns = files.concat([// criticalFilePaths doesn't include HTML pages (we only need this one)
   `offline-plugin-app-shell-fallback/index.html`, ...criticalFilePaths]);
   const manifests = [`manifest.json`, `manifest.webmanifest`];
